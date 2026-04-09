@@ -86,12 +86,13 @@ O banco de dados `producao.db` será criado automaticamente na primeira execuç�
 ║              Linha de Montagem Industrial                 ║
 ╠══════════════════════════════════════════════════════════╣
 ║                                                          ║
-║   1 │ Cadastrar pecas                                    ║
-║   2 │ Listar pecas reprovadas                            ║
-║   3 │ Listar caixas de armazenamento                     ║
-║   4 │ Gerar relatorio consolidado                        ║
-║   5 │ Resetar sistema (apagar todos os dados)            ║
-║   0 │ Sair                                               ║
+║   1 | Cadastrar nova peca                                ║
+║   2 | Listar pecas aprovadas/reprovadas                  ║
+║   3 | Remover peca cadastrada                            ║
+║   4 | Listar caixas                                      ║
+║   5 | Gerar relatorio final                              ║
+║   6 | Resetar sistema (apagar todos os dados)            ║
+║   0 | Sair                                               ║
 ║                                                          ║
 ╚══════════════════════════════════════════════════════════╝
 ```
