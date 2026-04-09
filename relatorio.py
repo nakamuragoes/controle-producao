@@ -93,13 +93,14 @@ def listar_caixas():
     if not detalhes:
         print("\n  Nenhuma caixa criada ainda.")
     else:
-        print(f"\n  {'Caixa':<8} {'Situacao':<12} {'Pecas':>6}  Ocupacao")
-        print(f"  {'-'*7} {'-'*11} {'-'*6}  {'-'*12}")
+        print(f"\n  {'Caixa':<8} {'Situacao':<12} {'Pecas':>6}  Ocupacao            Faltam")
+        print(f"  {'-'*7} {'-'*11} {'-'*6}  {'-'*20}  {'-'*6}")
 
         for caixa_id, situacao, total, criada_em in detalhes:
-            icone = "🔒" if situacao == "Fechada" else "📦"
-            barra = "█" * total + "░" * (10 - total)
-            print(f"  {icone} #{caixa_id:<6} {situacao:<12} {total:>4}/10  [{barra}]")
+            icone  = "[F]" if situacao == "Fechada" else "[A]"
+            barra  = "#" * total + "." * (10 - total)
+            faltam = "-" if situacao == "Fechada" else str(10 - total)
+            print(f"  {icone} #{caixa_id:<6} {situacao:<12} {total:>4}/10  [{barra}]  {faltam}")
 
         total_caixas    = len(detalhes)
         fechadas        = sum(1 for _, s, _, _ in detalhes if s == "Fechada")
@@ -107,8 +108,8 @@ def listar_caixas():
 
         print(f"\n  {'-' * 54}")
         print(f"  Total de caixas  : {total_caixas}")
-        print(f"  🔒 Fechadas      : {fechadas}")
-        print(f"  📦 Abertas       : {total_caixas - fechadas}")
+        print(f"  Fechadas         : {fechadas}")
+        print(f"  Abertas          : {total_caixas - fechadas}")
         print(f"  Pecas armazenadas: {total_aprovadas}")
 
     print(f"\n{LINHA}\n")

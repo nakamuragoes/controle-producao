@@ -69,6 +69,7 @@ def obter_caixa_atual():
         LEFT JOIN pecas p ON p.caixa_id = c.id
         WHERE c.fechada = 0
         GROUP BY c.id
+        ORDER BY c.id ASC
         LIMIT 1
     """)
     row = cursor.fetchone()
@@ -109,6 +110,52 @@ def inserir_peca(peso, cor, comprimento, status, motivo, caixa_id):
     conn.commit()
     conn.close()
     return peca_id
+
+
+def listar_pecas(filtro=None):
+    conn = conectar()
+    cursor = conn.cursor()
+    if filtro:
+        cursor.execute("""
+            SELECT id, peso, cor, comprimento, status, motivo_reprovacao, caixa_id
+            FROM pecas WHERE status = ? ORDER BY id
+        """, (filtro,))
+    else:
+        cursor.execute("""
+            SELECT id, peso, cor, comprimento, status, motivo_reprovacao, caixa_id
+            FROM pecas ORDER BY id
+        """)
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
+
+
+def reabrir_caixa(caixa_id):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE caixas SET fechada = 0 WHERE id = ?", (caixa_id,))
+    conn.commit()
+    conn.close()
+
+
+def buscar_peca(peca_id):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, peso, cor, comprimento, status, motivo_reprovacao, caixa_id
+        FROM pecas WHERE id = ?
+    """, (peca_id,))
+    row = cursor.fetchone()
+    conn.close()
+    return row
+
+
+def remover_peca(peca_id):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM pecas WHERE id = ?", (peca_id,))
+    conn.commit()
+    conn.close()
 
 
 # ──────────────────────────────────────────────
